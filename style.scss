@@ -1,0 +1,74 @@
+.grid{
+    display: grid; /*inline-grid - все содержание обтекает элемент*/
+    grid-template-columns: 2fr 60% minmax(100px, 1fr);/*можно задавать любые ед измер (px;%;fr). Количество чисел= количеству колонок*/
+   /* grid-template-rows: minmax(200px, 1fr) 100px 1fr;/*minmax(100px, 1fr);   
+    repeat(4, 200px) - 4 это количество колонок 200пх это ширина колонок
+    */
+    grid-template-columns: repeat(4, 200px);
+    grid-auto-rows: minmax(200px, auto);
+    grid-column-gap: 20px; /*отступ между колонками*/
+    grid-row-gap: 20px;/*между строками*/
+    grid-gap: 50px;
+
+    justify-items: center;/*stretch - по умолчанию; для контента*/
+    align-items: center;/*stretch - по умолчанию;для контента*/
+
+    .grid-item{
+        padding: 20px;
+        background: brown;
+        &:first-child{
+            grid-column-start: 1;/*назначает ячейку с которой все начинается*/
+            grid-column-end: -1;/*назначает ячейку на которой заканчивается + объеденяет*/
+            grid-column: 1/-1;/*краткая запись для двух верхних*/
+
+            align-self: start;
+            justify-self: start;
+
+        }
+    }
+}
+
+.wrapper{
+    display: grid;
+    max-width: 1024px;
+    margin: 0 auto;
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas:
+    "heading heading"
+    "sidebar content"
+    "sidebar foot";
+    
+    grid-template: 
+    "heading heading" 200px
+    "sidebar content" minmax(600px, auto)
+    "foot foot" 200px
+    / 1fr 3fr;
+}
+header, aside, main, footer{
+    background: #fef8ec;
+    border: 1px solid #f0b87d;
+    padding: 10px;
+    
+}
+header{
+    grid-area: heading;
+}
+aside{
+    grid-area: sidebar;
+}
+main{
+    grid-area: content;
+}
+footer{
+    grid-area: foot;
+}
+@media(max-width: 640px){
+    .wrapper{
+        grid-template-columns: 1fr;
+        grid-template-areas:
+        "heading"
+        "sidebar"
+        "content"
+        "foot";
+    }
+}
